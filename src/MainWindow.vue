@@ -25,6 +25,15 @@
           readonly
           :value="password"
         />
+
+        <!-- Simple Vertical Spacing -->
+        <Box padded><Text /></Box>
+
+        <Button
+          @click="generate"
+        >
+          GENERATE
+        </Button>
       </Box>
     </Box>
   </Window>
@@ -37,6 +46,9 @@ export default {
     password: ''
   }),
   methods: {
+    generate () {
+
+    },
     exit() {
       this.$exit();
     }
