@@ -41,13 +41,16 @@
         <Box
           padded
         >
-          <Text>
-            Advanced Options
-          </Text>
+          <Checkbox
+            v-model="showAdvancedOptions"
+          >
+            Advanced Options?
+          </Checkbox>
 
           <Box
             horizontal
             padded
+            v-if="showAdvancedOptions"
           >
             <Box>
               <Checkbox
@@ -79,7 +82,7 @@
               <Box
                 horizontal
               >
-                <Text>Minimum Value:    </Text>
+                <Text>Minimum Value:     </Text>
                 <Spinbox
                   v-model="minValue"
                 />
@@ -95,7 +98,7 @@
               <Box
                 horizontal
               >
-                <Text>Exact Value:    </Text>
+                <Text>Exact Value:             </Text>
                 <Spinbox
                   v-model="exactValue"
                 />
@@ -125,7 +128,8 @@ export default {
     specialCharacters: false,
     minValue: 8,
     maxValue: 12,
-    exactValue: 4
+    exactValue: 4,
+    showAdvancedOptions: false
   }),
   methods: {
     generate () {
@@ -135,12 +139,10 @@ export default {
         number: this.numbers,
         specialCharacter: this.specialCharacters,
         minimumLength: this.minValue,
-        maximumLength: this.maxValue
+        maximumLength: this.maxValue,
+        exactLength: this.exactValue
       }
 
-      if (this.exactValue > 4) {
-        options['exactLength'] = this.exactValue
-      }
       this.password = pg.generatePassword(options)
     },
     exit() {
