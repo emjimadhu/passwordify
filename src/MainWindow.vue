@@ -1,13 +1,41 @@
 <template>
-  <Window title="passwordify" width="400" height="100" margined v-on:close="exit">
-    <Box>
-      <Text>Welcome to your Vuido application!</Text>
+  <Window
+    :title="title"
+    width="500"
+    height="400"
+    margined
+    @close="exit"
+  >
+    <Box
+      padded
+    >
+      <Text>This is a simple app to Generate Password.</Text>
+
+      <!-- Simple Vertical Spacing -->
+      <Box padded><Text /></Box>
+      <Box padded><Text /></Box>
+
+      <Box
+        padded
+      >
+        <Text>
+          The Following is your Generated password
+        </Text>
+        <TextInput
+          readonly
+          :value="password"
+        />
+      </Box>
     </Box>
   </Window>
 </template>
 
 <script>
 export default {
+  data: () => ({
+    title: 'Passwordify',
+    password: ''
+  }),
   methods: {
     exit() {
       this.$exit();
