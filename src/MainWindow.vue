@@ -74,6 +74,25 @@
                 Special Charaters
               </Checkbox>
             </Box>
+
+            <Box>
+              <Box
+                horizontal
+              >
+                <Text>Minimum Value:    </Text>
+                <Spinbox
+                  v-model="minValue"
+                />
+              </Box>
+              <Box
+                horizontal
+              >
+                <Text>Maximum Value:    </Text>
+                <Spinbox
+                  v-model="maxValue"
+                />
+              </Box>
+            </Box>
           </Box>
         </Box>
       </Box>
@@ -95,7 +114,9 @@ export default {
     upperCase: false,
     lowerCase: false,
     numbers: false,
-    specialCharacters: false
+    specialCharacters: false,
+    minValue: 8,
+    maxValue: 12
   }),
   methods: {
     generate () {
@@ -103,7 +124,9 @@ export default {
         upperCaseAlpha: this.upperCase,
         lowerCaseAlpha: this.lowerCase,
         number: this.numbers,
-        specialCharacter: this.specialCharacters
+        specialCharacter: this.specialCharacters,
+        minimumLength: this.minValue,
+        maximumLength: this.maxValue
       }
       this.password = pg.generatePassword(options)
     },
