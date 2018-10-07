@@ -79,25 +79,54 @@
             </Box>
 
             <Box>
+              <!-- Simple Vertical Spacing -->
+              <Box padded><Text /></Box>
+
+              <Text>Select Min and Max or Exact Length</Text>
+
+              <!-- Simple Vertical Spacing -->
+              <Box padded><Text /></Box>
+
               <Box
                 horizontal
               >
-                <Text>Minimum Value:     </Text>
-                <Spinbox
-                  v-model="minValue"
-                  :min="8"
+                <RadioButtons
+                  :items="showMinMaxorExact"
+                  v-model="selectedLengthOption"
                 />
               </Box>
+
+              <!-- Simple Vertical Spacing -->
+              <Box padded><Text /></Box>
+
               <Box
-                horizontal
+                v-if="selectedLengthOption === 0"
               >
-                <Text>Maximum Value:    </Text>
-                <Spinbox
-                  v-model="maxValue"
-                  :min="8"
-                />
+                <Box
+                  horizontal
+                >
+                  <Text>Minimum Value:     </Text>
+                  <Spinbox
+                    v-model="minValue"
+                    :min="8"
+                  />
+                </Box>
+
+                <!-- Simple Vertical Spacing -->
+                <Box padded><Text /></Box>
+
+                <Box
+                  horizontal
+                >
+                  <Text>Maximum Value:    </Text>
+                  <Spinbox
+                    v-model="maxValue"
+                    :min="8"
+                  />
+                </Box>
               </Box>
               <Box
+                v-else
                 horizontal
               >
                 <Text>Exact Value:             </Text>
@@ -134,7 +163,9 @@ export default {
     minValue: 8,
     maxValue: 12,
     exactValue: 8,
-    showAdvancedOptions: false
+    showAdvancedOptions: false,
+    showMinMaxorExact: ['Min and Max', 'Exact Length'],
+    selectedLengthOption: 0
   }),
   methods: {
     generate () {
@@ -151,9 +182,12 @@ export default {
         options['number'] = true
       }
 
-      options['minimumLength'] = this.minValue
-      options['maximumLength'] = this.maxValue
-      options['exactLength'] = this.exactValue
+      if (this.selectedLengthOption === 0) {
+        options['minimumLength'] = this.minValue
+        options['maximumLength'] = this.maxValue
+      } else {
+        options['exactLength'] = this.exactValue
+      }
 
       this.password = pg.generatePassword(options)
     },
