@@ -128,12 +128,14 @@ export default {
     specialCharacters: false,
     minValue: 8,
     maxValue: 12,
-    exactValue: 4,
-    showAdvancedOptions: false
+    exactValue: 8,
+    showAdvancedOptions: false,
+    advancedOptions: {},
+    hasOneMinimumValue: false
   }),
   methods: {
     generate () {
-      const options = {
+      let options = {
         upperCaseAlpha: this.upperCase,
         lowerCaseAlpha: this.lowerCase,
         number: this.numbers,
@@ -143,10 +145,29 @@ export default {
         exactLength: this.exactValue
       }
 
+      if (this.hasOneMinimumValue) {
+        options['upperCaseAlpha'] = this.upperCase
+        options['lowerCaseAlpha'] = this.lowerCase
+        options['number'] = this.numbers
+        options['specialCharacter'] = this.specialCharacters
+      } else {
+        options['lowerCaseAlpha'] = true
+        options['number'] = true
+      }
+
       this.password = pg.generatePassword(options)
     },
     exit() {
       this.$exit();
+    }
+  },
+  watch: {
+    showAdvancedOptions (v) {
+      if (this.upperCase || this.Lowercase || this.numbers || this.specialCharacters) {
+        this.hasOneMinimumValue = true
+      } else {
+        this.hasOneMinimumValue = true
+      }
     }
   }
 }
