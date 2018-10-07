@@ -1,6 +1,6 @@
 {
   "name": "passwordify",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A simple JSON pretifier",
   "main": "dist/main.js",
   "scripts": {
@@ -9,12 +9,14 @@
     "watch": "webpack --config build/webpack.config.js --watch",
     "start": "node ./dist/main.min.js",
     "start:dev": "node ./dist/main.js",
-    "dev": "npm run build && npm start"
+    "dev": "npm run build && npm start",
+    "git": "bash git.sh"
   },
   "author": "Em Ji Madhu",
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "strict-password-generator": "^1.1.1",
     "vuido": "^0.2.0"
   },
   "devDependencies": {
