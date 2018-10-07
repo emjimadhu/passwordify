@@ -54,25 +54,25 @@
           >
             <Box>
               <Checkbox
-                v-model="upperCase"
+                v-model="options.upperCaseAlpha"
               >
                 Uppercase Letters
               </Checkbox>
 
               <Checkbox
-                v-model="lowerCase"
+                v-model="options.lowerCaseAlpha"
               >
                 Lowercase Letters
               </Checkbox>
 
               <Checkbox
-                v-model="numbers"
+                v-model="options.number"
               >
                 Numbers
               </Checkbox>
 
               <Checkbox
-                v-model="specialCharacters"
+                v-model="options.specialCharacter"
               >
                 Special Charaters
               </Checkbox>
@@ -85,6 +85,7 @@
                 <Text>Minimum Value:     </Text>
                 <Spinbox
                   v-model="minValue"
+                  :min="8"
                 />
               </Box>
               <Box
@@ -93,6 +94,7 @@
                 <Text>Maximum Value:    </Text>
                 <Spinbox
                   v-model="maxValue"
+                  :min="8"
                 />
               </Box>
               <Box
@@ -101,6 +103,7 @@
                 <Text>Exact Value:             </Text>
                 <Spinbox
                   v-model="exactValue"
+                  :min="8"
                 />
               </Box>
             </Box>
@@ -122,52 +125,40 @@ export default {
   data: () => ({
     title: 'Passwordify',
     password: '',
-    upperCase: false,
-    lowerCase: false,
-    numbers: false,
-    specialCharacters: false,
+    options: {
+      upperCaseAlpha: false,
+      lowerCaseAlpha: false,
+      number: false,
+      specialCharacter: false
+    },
     minValue: 8,
     maxValue: 12,
     exactValue: 8,
-    showAdvancedOptions: false,
-    advancedOptions: {},
-    hasOneMinimumValue: false
+    showAdvancedOptions: false
   }),
   methods: {
     generate () {
-      let options = {
-        upperCaseAlpha: this.upperCase,
-        lowerCaseAlpha: this.lowerCase,
-        number: this.numbers,
-        specialCharacter: this.specialCharacters,
-        minimumLength: this.minValue,
-        maximumLength: this.maxValue,
-        exactLength: this.exactValue
+      let options = JSON.parse(JSON.stringify(this.options))
+      let requiredMinimum = 0
+      for (let option in options) {
+        if (options[option]) {
+          requiredMinimum++
+        }
       }
 
-      if (this.hasOneMinimumValue) {
-        options['upperCaseAlpha'] = this.upperCase
-        options['lowerCaseAlpha'] = this.lowerCase
-        options['number'] = this.numbers
-        options['specialCharacter'] = this.specialCharacters
-      } else {
+      if (requiredMinimum === 0) {
         options['lowerCaseAlpha'] = true
         options['number'] = true
       }
 
+      options['minimumLength'] = this.minValue
+      options['maximumLength'] = this.maxValue
+      options['exactLength'] = this.exactValue
+
       this.password = pg.generatePassword(options)
     },
     exit() {
-      this.$exit();
-    }
-  },
-  watch: {
-    showAdvancedOptions (v) {
-      if (this.upperCase || this.Lowercase || this.numbers || this.specialCharacters) {
-        this.hasOneMinimumValue = true
-      } else {
-        this.hasOneMinimumValue = true
-      }
+      this.$exit()
     }
   }
 }
