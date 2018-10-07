@@ -92,6 +92,14 @@
                   v-model="maxValue"
                 />
               </Box>
+              <Box
+                horizontal
+              >
+                <Text>Exact Value:    </Text>
+                <Spinbox
+                  v-model="exactValue"
+                />
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -116,7 +124,8 @@ export default {
     numbers: false,
     specialCharacters: false,
     minValue: 8,
-    maxValue: 12
+    maxValue: 12,
+    exactValue: 4
   }),
   methods: {
     generate () {
@@ -127,6 +136,10 @@ export default {
         specialCharacter: this.specialCharacters,
         minimumLength: this.minValue,
         maximumLength: this.maxValue
+      }
+
+      if (this.exactValue > 4) {
+        options['exactLength'] = this.exactValue
       }
       this.password = pg.generatePassword(options)
     },
