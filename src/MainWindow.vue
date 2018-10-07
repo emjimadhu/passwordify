@@ -15,31 +15,37 @@
       <Box padded><Text /></Box>
       <Box padded><Text /></Box>
 
-      <Box
-        padded
-      >
-        <Text>
-          The Following is your Generated password
-        </Text>
-        <TextInput
-          readonly
-          :value="password"
-        />
+<Box
+  padded
+>
+  <Text>
+    The Following is your Generated password
+  </Text>
+  <TextInput
+    readonly
+    :value="password"
+  />
 
-        <!-- Simple Vertical Spacing -->
-        <Box padded><Text /></Box>
+  <!-- Simple Vertical Spacing -->
+  <Box padded><Text /></Box>
 
-        <Button
-          @click="generate"
-        >
-          GENERATE
-        </Button>
-      </Box>
+  <Button
+    @click="generate"
+  >
+    GENERATE
+  </Button>
+</Box>
     </Box>
   </Window>
 </template>
 
 <script>
+// Requiring the Library
+const PasswordGenerator = require('strict-password-generator').default
+
+// Creating an Instance
+const pg = new PasswordGenerator()
+
 export default {
   data: () => ({
     title: 'Passwordify',
@@ -47,7 +53,7 @@ export default {
   }),
   methods: {
     generate () {
-
+      this.password = pg.generatePassword()
     },
     exit() {
       this.$exit();
