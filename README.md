@@ -1,18 +1,36 @@
-# jsonify
+# Passwordify
 
-> A simple JSON pretifier
+A simple Password Generation Native Desktop App using Vuido (VueJS).
 
-## Build Setup
+![alt](https://www.dropbox.com/s/feds673nplduq0n/1_lipa9ojmf-7_6AzvJZpbAw.png?raw=1)
+
+### Technology:
+
+1) Vuido (VueJS)
+
+### Steps to run Locally
 
 ``` bash
-# install dependencies
+git clone https://github.com/emjimadhu/passwordify.git
+
 npm install
 
-# build
-npm run build
-
-# run the bundled script
-npm start
+npm run Dev
 ```
 
-For detailed explanation on how things work, consult the [Vuido documentation](https://vuido.mimec.org/).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
